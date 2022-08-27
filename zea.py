@@ -37,9 +37,11 @@ class FileHeader:
 
 MIO_OFF_ADJ = 1
 MIO_LEN_ADJ = 3
+
 YAY_OFF_ADJ = 1
 YAY_LEN_ADJ = 2
 YAY_BIG_LEN_ADJ = 18
+
 YAZ_OFF_ADJ = 1
 YAZ_LEN_ADJ = 2
 YAZ_BIG_LEN_ADJ = 18
@@ -62,7 +64,7 @@ def decompress_mio0(input: bytes, output: bytearray) -> int:
 
         log_print(f"{layout_off} {layout_bit_index}, ", end="")
         if input[layout_off] & (1 << layout_bit_index):
-            log_print(f"APPEND {chr(input[data_off])}")
+            log_print(f"APPEND {input[data_off]:X}")
             output.append(input[data_off])
             data_off += 1
             bytes_written += 1
@@ -73,9 +75,10 @@ def decompress_mio0(input: bytes, output: bytearray) -> int:
             log_print(
                 f"DECOMPRESS {length}, {offset}, {output[ - offset : - offset + length]}"
             )
-            output.extend(
-                output[-offset : -offset + length]
-            )  # Cheating with Python's negative indexing here
+            num = 0
+            while num < length:
+                output.append(output[bytes_written - offset + num])
+                num += 1
 
             info_off += 2
             bytes_written += length
@@ -87,7 +90,8 @@ def decompress_mio0(input: bytes, output: bytearray) -> int:
         # Consider adding checks here for offsets
 
     if len(output) != header.decompressed_size:
-        raise BaseException(
+        # raise BaseException(
+        print(
             f"Decompression failed: produced size {len(output)} is not equal to header-specified size {header.decompressed_size}"
         )
 
@@ -131,9 +135,10 @@ def decompress_yay0(input: bytes, output: bytearray) -> int:
                 f"DECOMPRESS {length}, {offset}: {-offset} to {-offset + length}: {output[ - offset : - offset + length]}"
             )
 
-            output.extend(
-                output[-offset : -offset + length]
-            )  # Cheating with Python's negative indexing here
+            num = 0
+            while num < length:
+                output.append(output[bytes_written - offset + num])
+                num += 1
 
             bytes_written += length
 
@@ -187,9 +192,10 @@ def decompress_yaz0(input: bytes, output: bytearray) -> int:
                 f"DECOMPRESS {length}, {offset}: {-offset} to {-offset + length}: {output[ - offset : - offset + length]}"
             )
 
-            output.extend(
-                output[-offset : -offset + length]
-            )  # Cheating with Python's negative indexing here
+            num = 0
+            while num < length:
+                output.append(output[bytes_written - offset + num])
+                num += 1
 
             bytes_written += length
 
