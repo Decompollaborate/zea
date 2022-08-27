@@ -3,7 +3,6 @@
 from __future__ import annotations
 import argparse
 from dataclasses import dataclass
-from sre_constants import FAILURE
 import struct
 
 LOG_VERBOSITY = 0

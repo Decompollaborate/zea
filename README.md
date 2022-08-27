@@ -16,4 +16,4 @@ To come:
 
 https://en.wikipedia.org/wiki/Zea
 
-But speculation is that MIO comes from MarIO, so ZEA is ZEldA (ZDA already has various meanings as an organisation name TLA, so I didn't want to use it)
+But speculation is that MIO comes from MarIO, so ZEA is ZEldA (ZDA already has various meanings as an organisation name TLA, so I didn't want to use it).
