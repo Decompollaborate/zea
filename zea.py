@@ -160,7 +160,7 @@ def decompress_yaz0(input: bytes, output: bytearray) -> int:
     header = FileHeader.read(input)
 
     if header.magic != b"YAZ0":
-        raise BaseException(f"Wrong magic: {header.magic!r} is not 'YAY0'")
+        raise BaseException(f"Wrong magic: {header.magic!r} is not 'YAZ0'")
 
     layout_off = layout_start = 0x10
     data_off = layout_off + 1
